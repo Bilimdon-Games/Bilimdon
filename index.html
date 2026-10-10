@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bilimdon</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#04050c;--card:#0d1020;--line:#252a45;--text:#eef0f6;--dim:#8b90a3;--acc:#ff7a45;--ok:#3ddc97;--bad:#ff5d6c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html,body{min-height:100%;margin:0}
+body{background:var(--ink);color:var(--text);font-family:"Montserrat",system-ui,sans-serif;font-weight:300;display:flex;justify-content:center;
+background-image:radial-gradient(1px 1px at 12% 18%,#fffc,transparent),radial-gradient(1px 1px at 78% 12%,#fff9,transparent),radial-gradient(1.5px 1.5px at 55% 30%,#fffb,transparent),radial-gradient(1px 1px at 90% 44%,#fff8,transparent),radial-gradient(1px 1px at 34% 8%,#fff9,transparent),radial-gradient(1px 1px at 66% 72%,#fff7,transparent),radial-gradient(1px 1px at 22% 60%,#fff8,transparent),radial-gradient(1.5px 1.5px at 84% 86%,#fffa,transparent)}
+main{width:100%;max-width:560px;padding:22px 18px 40px;display:flex;flex-direction:column;min-height:100vh}
+h1{margin:0;text-align:center;font-weight:300;font-size:clamp(22px,7vw,32px);letter-spacing:.3em;text-indent:.3em;text-transform:uppercase}
+h1 span{display:block;margin-top:8px;font-size:.42em;color:var(--acc);letter-spacing:.35em}
+.scr{display:none;flex:1;flex-direction:column;justify-content:center;gap:16px}
+.scr.on{display:flex}
+.planet{width:130px;height:130px;margin:4px auto;border-radius:50%;background:radial-gradient(circle at 34% 28%,#ffd9b8 0,#e8643c 30%,#8f2a1c 62%,#1a0705 100%);box-shadow:0 0 40px -6px #ff6a3c88;animation:fl 6s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(-8px)}}
+p.lead{margin:0;text-align:center;line-height:1.8;color:#c9cddb;font-size:14px;letter-spacing:.04em}
+.btn{appearance:none;border:0;border-radius:12px;padding:15px 18px;background:var(--acc);color:#1a0905;font:500 14px "Montserrat",system-ui,sans-serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.btn:hover,.btn:focus-visible{filter:brightness(1.1);outline:2px solid #fff6;outline-offset:2px}
+.btn.alt{background:transparent;color:var(--text);border:1px solid var(--line)}
+.btn.sm{padding:9px 14px;font-size:11px;letter-spacing:.15em}
+.btn:disabled{opacity:.3;cursor:default;filter:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{appearance:none;border:1px solid var(--line);border-radius:20px;padding:9px 15px;background:var(--card);color:var(--dim);font:300 13px "Montserrat",system-ui,sans-serif;cursor:pointer}
+.chip.on{border-color:var(--acc);color:var(--text);background:#2a140d}
+.best{text-align:center;color:var(--dim);font-size:12px;letter-spacing:.2em;text-transform:uppercase;min-height:1.2em}
+.top{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim)}
+.top b{color:var(--text);font-weight:500}
+.bar{height:5px;border-radius:5px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:100%;background:var(--acc);transform-origin:left;transition:transform .2s linear}
+.life{display:flex;gap:8px;justify-content:center}
+.q{margin:4px 0;font-size:clamp(18px,5vw,23px);line-height:1.45;font-weight:500}
+.opts{display:grid;gap:10px}
+.o{appearance:none;text-align:left;border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--card);color:var(--text);font:300 15px "Montserrat",system-ui,sans-serif;cursor:pointer}
+.o:hover,.o:focus-visible{border-color:#5560a0;outline:none}
+.o.ok{border-color:var(--ok);background:#0e2a22}
+.o.bad{border-color:var(--bad);background:#2c1018}
+.o.gone{opacity:.2}
+.o:disabled{cursor:default}
+.fact{display:none;border-left:3px solid var(--acc);padding:4px 0 4px 14px;font-size:13px;line-height:1.7;color:#c9cddb}
+.fact.on{display:block}
+.big{text-align:center;font-size:clamp(50px,17vw,80px);font-weight:200;line-height:1;margin:0}
+.rank{text-align:center;font-size:18px;letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+.sub{text-align:center;color:var(--dim);font-size:13px;line-height:1.7}
+.meds{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.meds span{border:1px solid var(--acc);border-radius:20px;padding:7px 13px;font-size:12px;background:#2a140d}
+.meds span.old{border-color:var(--line);background:var(--card);color:var(--dim)}
+.wr{display:grid;gap:8px;font-size:13px;line-height:1.6}
+.wr div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 13px}
+.wr b{color:var(--ok);font-weight:500}
+@media(prefers-reduced-motion:reduce){.planet{animation:none}.bar i{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<h1>Bilimdon<span>5 mavzu, 10 savol, 15 soniya</span></h1>
+
+<section class="scr on" id="s0">
+  <div class="planet" aria-hidden="true"></div>
+  <p class="lead">Mavzuni tanlang va bilimingizni sinang. Tez javob bersangiz va xatosiz ketsangiz, ko'proq ball olasiz. Yordam tugmalari va yutuqlar ham bor.</p>
+  <div class="chips" id="chips"></div>
+  <div class="best" id="best"></div>
+  <button class="btn" id="go">Boshlash</button>
+</section>
+
+<section class="scr" id="s1">
+  <div class="top"><span>Savol <b id="n">1</b>/10</span><span id="stk"></span><span>Ball <b id="sc">0</b></span></div>
+  <div class="bar"><i id="tb"></i></div>
+  <div class="life"><button class="btn alt sm" id="l1">50:50</button><button class="btn alt sm" id="l2">+10 soniya</button></div>
+  <h2 class="q" id="q"></h2>
+  <div class="opts" id="opts"></div>
+  <div class="fact" id="fact"></div>
+  <button class="btn" id="next" style="display:none">Keyingisi</button>
+</section>
+
+<section class="scr" id="s2">
+  <div class="rank" id="rk"></div>
+  <p class="big" id="fs">0</p>
+  <p class="sub" id="fd"></p>
+  <div class="meds" id="meds"></div>
+  <div class="wr" id="wr"></div>
+  <button class="btn" id="again">Qayta o'ynash</button>
+  <button class="btn alt" id="menu">Mavzuni almashtirish</button>
+  <button class="btn alt" id="share">Natijani nusxalash</button>
+  <div class="sub" id="msg"></div>
+</section>
+</main>
+
+<script>
+var CATS=[["a","Aralash"],["k","Kosmos"],["h","Hayvonlar"],["u","O'zbekiston"],["f","Fan va tabiat"]];
+var D={
+k:[
+["Quyosh tizimidagi eng katta sayyora qaysi?",["Yupiter","Saturn","Neptun","Mars"],0,"Yupiterga 1300 dan ortiq Yer sig'adi."],
+["Quyoshga eng yaqin sayyora qaysi?",["Venera","Merkuriy","Mars","Yer"],1,"Merkuriy Quyosh atrofini atigi 88 kunda aylanib chiqadi."],
+["Qaysi sayyora \"Qizil sayyora\" deb ataladi?",["Venera","Yupiter","Mars","Uran"],2,"Qizil rang Mars tuprog'idagi temir oksididan, ya'ni zangdan."],
+["Quyosh nuri Yerga taxminan necha daqiqada yetib keladi?",["1 daqiqa","8 daqiqa","30 daqiqa","1 soat"],1,"Biz Quyoshni har doim 8 daqiqa oldingi holatida ko'ramiz."],
+["Oyga birinchi bo'lib qadam qo'ygan odam kim?",["Yuriy Gagarin","Buzz Oldrin","Nil Armstrong","Alan Shepard"],2,"Bu 1969-yil 20-iyulda Apollon-11 missiyasida bo'lgan."],
+["Quyosh tizimida nechta sayyora bor?",["7","8","9","10"],1,"Pluton 2006-yildan beri mitti sayyora hisoblanadi."],
+["Quyosh tizimidagi eng issiq sayyora qaysi?",["Merkuriy","Mars","Venera","Yupiter"],2,"Venera Merkuriydan uzoqroq, lekin qalin atmosferasi issiqni ushlab qoladi."],
+["Quyosh tizimidagi eng baland vulkan qaysi sayyorada?",["Yer","Mars","Venera","Merkuriy"],1,"Olimp tog'i taxminan 22 km baland, Everestdan deyarli uch baravar."],
+["Birinchi bo'lib koinotga uchgan odam kim?",["Yuriy Gagarin","Nil Armstrong","Jon Glenn","Valentina Tereshkova"],0,"Gagarin 1961-yil 12-aprelda Yer atrofini bir marta aylanib chiqdi."],
+["Quyosh nima?",["Sayyora","Yulduz","Yo'ldosh","Kometa"],1,"Quyosh oddiy yulduz, Galaktikamizda yuz milliardlab shunday yulduz bor."],
+["Bizning galaktikamiz qanday ataladi?",["Andromeda","Somon yo'li","Uchburchak","Girdob"],1,"Somon yo'li ichidan qaraganda osmonda oq yo'l kabi ko'rinadi."],
+["Qaysi sayyora yonboshiga ag'darilgan holda aylanadi?",["Uran","Saturn","Mars","Neptun"],0,"Uranning aylanish o'qi orbitasiga deyarli yotiq."],
+["Yorug'lik yili nimaning o'lchovi?",["Vaqt","Masofa","Tezlik","Og'irlik"],1,"Bir yorug'lik yili taxminan 9,5 trillion kilometr."],
+["Pluton hozir qanday toifaga kiradi?",["Yulduz","Yo'ldosh","Mitti sayyora","Kometa"],2,"2006-yilda astronomlar shunday qaror qilgan."],
+["Quyosh tizimidagi eng katta yo'ldosh qaysi?",["Oy","Titan","Triton","Ganimed"],3,"Ganimed Yupiter yo'ldoshi, hatto Merkuriydan ham kattaroq."],
+["Koinotda (havosiz bo'shliqda) tovush tarqaladimi?",["Ha, juda tez","Ha, juda sekin","Yo'q","Faqat Oyda"],2,"Tovush tarqalishi uchun havo kabi muhit kerak, koinotda esa u yo'q."]],
+h:[
+["Quruqlikdagi eng katta hayvon qaysi?",["Afrika fili","Karkidon","Begemot","Jirafa"],0,"Afrika savanna fili og'irligi 6 tonnagacha yetadi."],
+["Qaysi hayvon eng tez yuguradi?",["Sher","Gepard","Ot","Antilopa"],1,"Gepard qisqa masofada soatiga 100 km dan ortiq tezlik oladi."],
+["Ahtapotning nechta yuragi bor?",["1","2","3","8"],2,"Ikkitasi jabralarga, bittasi butun tanaga qon haydaydi."],
+["Quyidagilardan qaysi qush uchmaydi?",["Burgut","Pingvin","Chumchuq","Qaldirg'och"],1,"Pingvin qanotlari bilan suvda uchgandek suzadi."],
+["Eng uzun bo'yli hayvon qaysi?",["Fil","Tuya","Jirafa","Ayiq"],2,"Jirafaning bo'yi 5 metrdan oshishi mumkin."],
+["Delfin qaysi sinfga kiradi?",["Baliqlar","Sutemizuvchilar","Qushlar","Sudralib yuruvchilar"],1,"U baliq emas, o'pka bilan nafas oladi va bolasini sut bilan boqadi."],
+["Quruqlikdagi eng uzoq umr ko'radigan hayvonlardan biri qaysi?",["Fil","It","Toshbaqa","Ot"],2,"Ba'zi katta toshbaqalar 150 yildan ortiq yashaydi."],
+["Tuyaning o'rkachida asosan nima bor?",["Suv","Havo","Yog'","Suyak"],2,"Yog' zaxirasi tuyaga ovqatsiz uzoq yurishga yordam beradi."]],
+u:[
+["O'zbekistonning poytaxti qaysi shahar?",["Samarqand","Toshkent","Buxoro","Xiva"],1,"Toshkent Markaziy Osiyoning eng katta shaharlaridan biri."],
+["Registon maydoni qaysi shaharda joylashgan?",["Buxoro","Xiva","Samarqand","Termiz"],2,"Registonda uchta mashhur madrasa bor."],
+["Amir Temur qaysi shaharda tug'ilgan?",["Shahrisabz","Buxoro","Xiva","Termiz"],0,"Shahrisabz qadimda Kesh deb atalgan, Temur 1336-yilda shu yerda tug'ilgan."],
+["Orol dengizi qaysi ikki daryo suvi bilan to'lgan?",["Amudaryo va Sirdaryo","Zarafshon va Chirchiq","Volga va Don","Nil va Kongo"],0,"Bu daryolar suvi ko'p olinib, dengiz katta qismi qurib qolgan."],
+["Mirzo Ulug'bek qaysi fan bilan mashhur?",["Dengizchilik","Astronomiya","Rassomlik","Tibbiyot"],1,"U Samarqandda rasadxona qurdirib, yulduzlar jadvalini tuzgan."],
+["Al-Xorazmiy qaysi fan asoschilaridan biri?",["Algebra","Biologiya","Geografiya","Kimyo"],0,"\"Algebra\" so'zi uning kitobi nomidan kelib chiqqan."],
+["Navro'z bayrami qaysi faslda nishonlanadi?",["Qish","Bahor","Yoz","Kuz"],1,"Navro'z har yili 21-mart atrofida, bahor boshlanganda nishonlanadi."],
+["Ibn Sinoning \"Tib qonunlari\" asari qaysi sohaga oid?",["Tibbiyot","Astronomiya","Tarix","Huquq"],0,"Bu kitob asrlar davomida Yevropada ham o'qitilgan."]],
+f:[
+["Suv dengiz sathida necha darajada qaynaydi?",["50 °C","80 °C","100 °C","150 °C"],2,"Baland tog'larda bosim past, suv esa pastroq haroratda qaynaydi."],
+["Katta odamning skeletida nechta suyak bor?",["106","206","306","406"],1,"Chaqaloqlarda suyaklar ko'proq, keyin ba'zilari qo'shilib ketadi."],
+["Suvning kimyoviy formulasi qanday?",["CO2","O2","H2O","NaCl"],2,"Har bir suv molekulasi ikki vodorod va bitta kislorod atomidan iborat."],
+["Fotosintezda o'simliklar havodan nimani yutadi?",["Kislorod","Azot","Karbonat angidrid","Vodorod"],2,"O'simliklar buning evaziga kislorod chiqaradi."],
+["Eng katta qit'a qaysi?",["Afrika","Osiyo","Yevropa","Shimoliy Amerika"],1,"Osiyo Yer quruqligining uchdan bir qismidan ko'prog'ini egallaydi."],
+["Eng chuqur okean qaysi?",["Hind","Atlantika","Shimoliy Muz","Tinch"],3,"Mariana cho'kmasi shu okeanda, chuqurligi taxminan 11 km."],
+["Yorug'lik tezligi taxminan qancha?",["300 km/s","3 000 km/s","300 000 km/s","3 000 000 km/s"],2,"Shu tezlikda yorug'lik bir soniyada Yerni 7 marta aylanib chiqadi."],
+["Chaqmoq avval ko'rinadi, momaqaldiroq keyin eshitiladi. Nega?",["Yorug'lik tovushdan tez","Tovush yorug'likdan tez","Ular bir vaqtda","Bulutlar to'sadi"],0,"Yorug'lik deyarli bir zumda yetib keladi, tovush esa ancha sekin."]]
+};
+var $=function(i){return document.getElementById(i)};
+var cat="a",set,idx,score,streak,maxS,right,tleft,tmax,t0,timer,locked,used,fast,wrongs,l1u,l2u;
+function ld(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var bests=ld("bz_best",{}),meds=ld("bz_med",[]);
+function show(i){for(var k=0;k<3;k++)$("s"+k).className="scr"+(k==i?" on":"")}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function chips(){var c=$("chips");c.innerHTML="";CATS.forEach(function(x){var b=document.createElement("button");b.className="chip"+(x[0]==cat?" on":"");b.textContent=x[1];b.onclick=function(){cat=x[0];chips();bestTxt()};c.appendChild(b)})}
+function bestTxt(){var b=bests[cat];$("best").textContent=b?"Shu mavzudagi rekord: "+b+" ball":"Bu mavzuda hali o'ynalmagan"}
+function home(){chips();bestTxt();show(0)}
+function pool(){if(cat!="a")return D[cat];return D.k.concat(D.h,D.u,D.f)}
+function start(){set=shuf(pool()).slice(0,10);idx=0;score=0;streak=0;maxS=0;right=0;used=0;fast=false;wrongs=[];l1u=l2u=false;show(1);ask()}
+function ask(){
+  var d=set[idx];locked=false;tmax=tleft=15;t0=Date.now();
+  $("n").textContent=idx+1;$("sc").textContent=score;$("q").textContent=d[0];$("stk").textContent=streak>1?"\uD83D\uDD25 "+streak:"";
+  $("fact").className="fact";$("next").style.display="none";$("l1").disabled=l1u;$("l2").disabled=l2u;
+  var o=$("opts");o.innerHTML="";
+  shuf(d[1].map(function(t,i){return[t,i]})).forEach(function(p){
+    var b=document.createElement("button");b.className="o";b.textContent=p[0];b.dataset.i=p[1];b.onclick=function(){pick(b,p[1])};o.appendChild(b)});
+  tick();clearInterval(timer);
+  timer=setInterval(function(){tleft-=.2;tick();if(tleft<=0){clearInterval(timer);pick(null,-1)}},200)
+}
+function tick(){$("tb").style.transform="scaleX("+Math.max(0,tleft/tmax)+")"}
+$("l1").onclick=function(){
+  if(locked||l1u)return;l1u=true;used++;this.disabled=true;
+  var bs=[].slice.call($("opts").children).filter(function(b){return+b.dataset.i!==set[idx][2]});
+  shuf(bs).slice(0,2).forEach(function(b){b.disabled=true;b.className="o gone"})};
+$("l2").onclick=function(){if(locked||l2u)return;l2u=true;used++;this.disabled=true;tleft+=10;if(tleft>tmax)tmax=tleft;tick()};
+function pick(btn,i){
+  if(locked)return;locked=true;clearInterval(timer);$("l1").disabled=$("l2").disabled=true;
+  var d=set[idx],ok=i===d[2];
+  if(ok){right++;streak++;if(streak>maxS)maxS=streak;if(Date.now()-t0<3000)fast=true;score+=100+Math.round(Math.max(0,tleft)*4)+(streak>1?(streak-1)*10:0)}
+  else{streak=0;wrongs.push([d[0],d[1][d[2]]])}
+  var bs=$("opts").children;
+  for(var k=0;k<bs.length;k++){bs[k].disabled=true;
+    if(+bs[k].dataset.i===d[2])bs[k].className="o ok";else if(bs[k]===btn)bs[k].className="o bad"}
+  $("sc").textContent=score;$("stk").textContent=streak>1?"\uD83D\uDD25 "+streak:"";
+  $("fact").textContent=(ok?"To'g'ri! ":(i<0?"Vaqt tugadi. ":"Noto'g'ri. "))+d[3];$("fact").className="fact on";
+  $("next").textContent=idx>=9?"Natijani ko'rish":"Keyingisi";$("next").style.display="block";$("next").focus()
+}
+function rankOf(r){return r>=10?"Koinot ustasi":r>=8?"Bilimdon":r>=6?"Kuzatuvchi":r>=4?"Shogird":"Yangi boshlovchi"}
+function cnt(el,to){var s=Date.now();(function f(){var p=Math.min(1,(Date.now()-s)/900);el.textContent=Math.round(to*p);if(p<1)requestAnimationFrame(f)})()}
+var MD={chaq:"\u26A1 Chaqmoq (3 soniyada to'g'ri javob)",ser:"\uD83D\uDD25 Seriya (5 ta ketma-ket)",muk:"\uD83C\uDFC6 Mukammal (10/10)",yor:"\uD83E\uDDE0 Yordamsiz (8+ to'g'ri, yordamsiz)"};
+function finish(){
+  var nb=score>(bests[cat]||0);if(nb){bests[cat]=score;sv("bz_best",bests)}
+  var got=[];if(fast)got.push("chaq");if(maxS>=5)got.push("ser");if(right==10)got.push("muk");if(right>=8&&used==0)got.push("yor");
+  var m=$("meds");m.innerHTML="";
+  got.forEach(function(k){var s=document.createElement("span");var neu=meds.indexOf(k)<0;s.className=neu?"":"old";s.textContent=MD[k]+(neu?" \u2014 yangi!":"");m.appendChild(s);if(neu)meds.push(k)});
+  sv("bz_med",meds);
+  $("rk").textContent=rankOf(right);cnt($("fs"),score);
+  $("fd").textContent="10 savoldan "+right+" tasiga to'g'ri javob berdingiz."+(nb?" Bu shu mavzudagi yangi rekordingiz!":"")+" Jami yutuqlar: "+meds.length+"/4.";
+  var w=$("wr");w.innerHTML="";
+  if(wrongs.length){var h=document.createElement("div");h.className="sub";h.textContent="Xatolar ustida ishlang:";w.appendChild(h);
+    wrongs.forEach(function(x){var e=document.createElement("div");e.textContent=x[0]+" ";var b=document.createElement("b");b.textContent=x[1];e.appendChild(b);w.appendChild(e)})}
+  $("msg").textContent="";show(2)
+}
+$("go").onclick=start;$("again").onclick=start;$("menu").onclick=home;
+$("next").onclick=function(){if(idx>=9)finish();else{idx++;ask()}};
+$("share").onclick=function(){
+  var t="Bilimdon ("+CATS.filter(function(c){return c[0]==cat})[0][1]+"): 10 savoldan "+right+" ta to'g'ri, "+score+" ball, unvon: "+rankOf(right)+". Sen ham sinab ko'r!";
+  try{navigator.clipboard.writeText(t).then(function(){$("msg").textContent="Nusxalandi, endi istalgan joyga qo'yishingiz mumkin."},function(){$("msg").textContent=t})}catch(e){$("msg").textContent=t}
+};
+home();
+</script>
+</body>
+</html>
